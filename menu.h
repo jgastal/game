@@ -2,22 +2,21 @@
 #define MENU_H
 
 #include "widget.h"
+#include <rect.h>
 
 struct SDL_MouseButtonEvent;
 struct SDL_Surface;
 
-class Menu : public Widget
+class Menu : public Rect
 {
 	public:
 		Menu();
 
 	protected:
 		virtual void leftClicked(SDL_MouseButtonEvent* event);
-		virtual void paint(SDL_Surface* surface);
 
 	private:
-		bool color;
-		int red, blue;
+		bool status;
 };
 
 #endif // MENU_H

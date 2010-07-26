@@ -9,10 +9,12 @@ if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 endif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 
 set( SOURCES
-	widget.cpp
 	map.cpp
 	menu.cpp
 	main.cpp )
 
 add_executable(game ${SOURCES})
-target_link_libraries(game ${SDL_LIBRARY})
+target_link_libraries(game widget)
+
+add_subdirectory(libwidget)
+include_directories(libwidget)
