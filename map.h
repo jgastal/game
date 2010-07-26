@@ -1,15 +1,12 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "widget.h"
+#include <rect.h>
 
-class Map : public Widget
+class Map : public Rect
 {
 	public:
 		Map();
-
-	protected:
-		virtual void paint(SDL_Surface* surface);
 };
 
 #endif // MAP_H

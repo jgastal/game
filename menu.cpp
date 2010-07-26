@@ -1,5 +1,4 @@
 #include "menu.h"
-#include <SDL.h>
 
 Menu::Menu()
 {

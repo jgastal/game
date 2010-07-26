@@ -12,6 +12,9 @@ class Rect : public Widget
 
 		static int red;
 		static int blue;
+		static int green;
+		static int black;
+		static int white;
 
 	protected:
 		virtual void paint(SDL_Surface* surface);
