@@ -19,7 +19,6 @@ class Widget
 		std::list<Widget*> getChildren() const;
 		void setBlockEvents(bool block);
 		bool contains(int x, int y);
-		virtual void processEvent(SDL_Event *event);
 		virtual void move(int x, int y);
 		virtual void resize(int w, int h);
 		void update();
@@ -29,8 +28,12 @@ class Widget
 		static void runEventLoop();
 
 	protected:
+		virtual void processEvent(SDL_Event *event);
 		virtual void paint(SDL_Surface *surface) { };
 		virtual void clicked(SDL_MouseButtonEvent *event) { focus = true; };
+		virtual void leftClicked(SDL_MouseButtonEvent *event) { };
+		virtual void rightClicked(SDL_MouseButtonEvent *event) { };
+		virtual void middleClicked(SDL_MouseButtonEvent *event) { };
 		virtual void mouseMoved(SDL_MouseMotionEvent *event) { };
 		virtual void keyEvent(SDL_KeyboardEvent *event) { };
 

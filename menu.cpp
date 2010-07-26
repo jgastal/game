@@ -21,9 +21,8 @@ void Menu::paint(SDL_Surface* surface)
 		SDL_FillRect(surface, NULL, red);
 }
 
-void Menu::clicked(SDL_MouseButtonEvent* event)
+void Menu::leftClicked(SDL_MouseButtonEvent* event)
 {
-	Widget::clicked(event);
 	color = !color;
 	update();
 }

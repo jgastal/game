@@ -12,7 +12,7 @@ class Menu : public Widget
 		Menu();
 
 	protected:
-		virtual void clicked(SDL_MouseButtonEvent* event);
+		virtual void leftClicked(SDL_MouseButtonEvent* event);
 		virtual void paint(SDL_Surface* surface);
 
 	private:

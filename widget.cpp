@@ -51,7 +51,21 @@ void Widget::processEvent(SDL_Event* event)
 	{
 		case SDL_MOUSEBUTTONUP:
 			if(contains(event->button.x, event->button.y))
+			{
 				clicked(&(event->button));
+				switch(event->button.button)
+				{
+					case SDL_BUTTON_LEFT:
+						leftClicked(&(event->button));
+						break;
+					case SDL_BUTTON_RIGHT:
+						rightClicked(&(event->button));
+						break;
+					case SDL_BUTTON_MIDDLE:
+						middleClicked(&(event->button));
+						break;
+				}
+			}
 			break;
 		case SDL_MOUSEMOTION:
 			mouseMoved(&(event->motion));
