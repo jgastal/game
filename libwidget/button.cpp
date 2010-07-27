@@ -6,9 +6,8 @@
 
 using namespace std;
 
-Button::Button(Widget* parent): Widget(parent)
+Button::Button(Widget* parent): Image(parent)
 {
-	image = NULL;
 	font = NULL;
 	//default values
 	fontSize = 12;
@@ -18,8 +17,6 @@ Button::Button(Widget* parent): Widget(parent)
 
 Button::~Button()
 {
-	if(image)
-		SDL_FreeSurface(image);
 	if(font)
 		TTF_CloseFont(font);
 }
@@ -27,14 +24,6 @@ Button::~Button()
 void Button::setText(string t)
 {
 	text = t;
-	update();
-}
-
-void Button::setImage(string i)
-{
-	if(image)
-		SDL_FreeSurface(image);
-	image = IMG_Load(i.c_str());
 	update();
 }
 
@@ -63,9 +52,7 @@ void Button::setFontSize(int sz)
 
 void Button::paint(SDL_Surface* surface)
 {
-	if(!image)
-		return;
-	SDL_BlitSurface(image, NULL, surface, NULL);
+	Image::paint(surface);
 	if(text.empty())
 		return;
 	SDL_Surface *textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
