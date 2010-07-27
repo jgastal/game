@@ -2,13 +2,7 @@
 #define WIDGET_H
 
 #include <list>
-
-struct SDL_Surface;
-struct SDL_KeyboardEvent;
-struct SDL_MouseMotionEvent;
-struct SDL_Rect;
-struct SDL_MouseButtonEvent;
-union SDL_Event;
+#include <SDL.h>
 
 class Widget
 {
@@ -17,6 +11,7 @@ class Widget
 		~Widget();
 		SDL_Rect getGeometry() const;
 		std::list<Widget*> getChildren() const;
+		bool getBlockEvents() const;
 		void setBlockEvents(bool block);
 		bool contains(int x, int y);
 		virtual void move(int x, int y);
@@ -24,8 +19,16 @@ class Widget
 		void update();
 		void render(SDL_Surface *target);
 
-		static void initVideo();
+		static void init();
 		static void runEventLoop();
+		static int getScreenWidth();
+		static int getScreenHeight();
+
+		static SDL_Color red;
+		static SDL_Color blue;
+		static SDL_Color green;
+		static SDL_Color black;
+		static SDL_Color white;
 
 	protected:
 		virtual void processEvent(SDL_Event *event);
@@ -45,8 +48,9 @@ class Widget
 		bool blockEvents;
 		SDL_Rect *geometry;
 		SDL_Surface *surface;
-		static int depth;
 
+		static int depth;
+		static bool inited;
 		static void cleanUp();
 };
 

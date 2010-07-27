@@ -6,21 +6,15 @@
 class Rect : public Widget
 {
 	public:
-		Rect();
-		void setColor(int c);
-		int getColor() const;
-
-		static int red;
-		static int blue;
-		static int green;
-		static int black;
-		static int white;
+		Rect(Widget *parent = 0);
+		void setColor(SDL_Color c);
+		SDL_Color getColor() const;
 
 	protected:
 		virtual void paint(SDL_Surface* surface);
 
 	private:
-		int color;
+		SDL_Color color;
 };
 
 #endif // RECT_H

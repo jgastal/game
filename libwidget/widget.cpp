@@ -1,10 +1,20 @@
 #include "widget.h"
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <iostream>
 
+using namespace std;
+
 //Global list of all top level widgets
-static std::list<Widget*> __widgetList;
+static list<Widget*> __widgetList;
 int Widget::depth = 0;
+bool Widget::inited = false;
+
+SDL_Color Widget::red = SDL_Color{0xff, 0, 0, 0};
+SDL_Color Widget::green = SDL_Color{0, 0xff, 0, 0};
+SDL_Color Widget::blue = SDL_Color{0, 0, 0xff, 0};
+SDL_Color Widget::black = SDL_Color{0, 0, 0, 0};
+SDL_Color Widget::white = SDL_Color{0xff, 0xff, 0xff, 0};
 
 Widget::Widget(Widget* parent)
 {
@@ -30,9 +40,14 @@ SDL_Rect Widget::getGeometry() const
 	return *geometry;
 }
 
-std::list< Widget* > Widget::getChildren() const
+list< Widget* > Widget::getChildren() const
 {
 	return children;
+}
+
+bool Widget::getBlockEvents() const
+{
+	return blockEvents;
 }
 
 void Widget::setBlockEvents(bool block)
@@ -42,11 +57,6 @@ void Widget::setBlockEvents(bool block)
 
 void Widget::processEvent(SDL_Event* event)
 {
-	if(!blockEvents)
-	{
-		for(std::list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
-			(*it)->processEvent(event);
-	}
 	switch(event->type)
 	{
 		case SDL_MOUSEBUTTONUP:
@@ -73,6 +83,15 @@ void Widget::processEvent(SDL_Event* event)
 		case SDL_KEYDOWN:
 			keyEvent(&(event->key));
 			break;
+	}
+	if(!blockEvents)
+	{
+		for(list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
+		{
+			event->button.x -= geometry->x;
+			event->button.y -= geometry->y;
+			(*it)->processEvent(event);
+		}
 	}
 }
 
@@ -107,7 +126,7 @@ void Widget::update()
 void Widget::render(SDL_Surface* target)
 {
 	//render all my children on me
-	for(std::list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
+	for(list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
 		(*it)->render(surface);
 	SDL_Rect *size = (SDL_Rect*)calloc(sizeof(SDL_Rect), 1);
 	size->w = geometry->w;
@@ -140,11 +159,11 @@ void Widget::runEventLoop()
 		{  /* Loop until there are no events left on the queue */
 			if(event.type == SDL_QUIT) //quit loop on alt+f4
 				return;
-			for(std::list<Widget*>::iterator it = __widgetList.begin(); it != __widgetList.end(); it++)
+			for(list<Widget*>::iterator it = __widgetList.begin(); it != __widgetList.end(); it++)
 				(*it)->processEvent(&event);
 		}
 		//when do I render?! always is overkill!
-		for(std::list<Widget*>::iterator it = __widgetList.begin(); it != __widgetList.end(); it++)
+		for(list<Widget*>::iterator it = __widgetList.begin(); it != __widgetList.end(); it++)
 			(*it)->render(SDL_GetVideoSurface());;
 		//done processing events, repaint screen
 		SDL_Flip(SDL_GetVideoSurface());
@@ -152,8 +171,10 @@ void Widget::runEventLoop()
 	}
 }
 
-void Widget::initVideo()
+void Widget::init()
 {
+	if(inited)
+		return;
 #ifndef DEBUG
 	Uint32 displayFlags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_ANYFORMAT | SDL_FULLSCREEN;
 #else
@@ -162,7 +183,7 @@ void Widget::initVideo()
 
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTTHREAD) < 0)
 	{
-		std::cerr << "Failed to init SDL: " << SDL_GetError();
+		cerr << "Failed to init SDL: " << SDL_GetError();
 		exit(-1);
 	}
 	atexit(SDL_Quit);
@@ -175,7 +196,7 @@ void Widget::initVideo()
 		modes = SDL_ListModes(info->vfmt, displayFlags);
 		if(modes == (SDL_Rect**)0)
 		{
-			std::cerr << "No video modes available.\n";
+			cerr << "No video modes available.\n";
 			exit(-1);
 		}
 	}
@@ -204,9 +225,29 @@ void Widget::initVideo()
 
 	if(SDL_SetVideoMode(width, height, info->vfmt->BitsPerPixel, displayFlags))
 		atexit(Widget::cleanUp);
+
+	if(TTF_Init())
+	{
+		cerr << "Failed to initialize SDL_ttf\n";
+		return;
+	}
+
+	inited = true;
 }
 
 void Widget::cleanUp()
 {
 	SDL_FreeSurface(SDL_GetVideoSurface());
+}
+
+int Widget::getScreenWidth()
+{
+	init();
+	return SDL_GetVideoSurface()->w;
+}
+
+int Widget::getScreenHeight()
+{
+	init();
+	return SDL_GetVideoSurface()->h;
 }
