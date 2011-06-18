@@ -1,4 +1,5 @@
 set(SOURCES
+	application.cpp
 	widget.cpp
 	rect.cpp
 	button.cpp

@@ -8,6 +8,8 @@ using namespace std;
 
 typedef struct _TTF_Font TTF_Font;
 
+namespace libwidget {
+
 class Button : public Image
 {
 	public:
@@ -28,5 +30,7 @@ class Button : public Image
 		TTF_Font *font;
 		int fontSize;
 };
+
+}
 
 #endif // BUTTON_H

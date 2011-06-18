@@ -6,6 +6,8 @@
 
 using namespace std;
 
+namespace libwidget {
+
 Button::Button(Widget* parent): Image(parent)
 {
 	font = NULL;
@@ -65,4 +67,6 @@ void Button::paint(SDL_Surface* surface)
 void Button::leftClicked(SDL_MouseButtonEvent* event)
 {
 	//do something to image to make it seem clicked
+}
+
 }

@@ -3,6 +3,8 @@
 
 #include "widget.h"
 
+namespace libwidget {
+
 class Rect : public Widget
 {
 	public:
@@ -16,5 +18,7 @@ class Rect : public Widget
 	private:
 		SDL_Color color;
 };
+
+}
 
 #endif // RECT_H

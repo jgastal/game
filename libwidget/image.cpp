@@ -2,6 +2,8 @@
 
 #include <SDL_image.h>
 
+namespace libwidget {
+
 Image::Image(Widget *parent) : Widget(parent)
 {
 	image = NULL;
@@ -26,4 +28,6 @@ void Image::paint(SDL_Surface* surface)
 	if(!image)
 		return;
 	SDL_BlitSurface(image, NULL, surface, NULL);
+}
+
 }

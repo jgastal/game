@@ -4,6 +4,8 @@
 #include <list>
 #include <SDL.h>
 
+namespace libwidget {
+
 class Widget
 {
 	public:
@@ -18,11 +20,7 @@ class Widget
 		virtual void resize(int w, int h);
 		void update();
 		void render(SDL_Surface *target);
-
-		static void init();
-		static void runEventLoop();
-		static int getScreenWidth();
-		static int getScreenHeight();
+		virtual void processEvent(SDL_Event *event);
 
 		static SDL_Color red;
 		static SDL_Color blue;
@@ -31,7 +29,6 @@ class Widget
 		static SDL_Color white;
 
 	protected:
-		virtual void processEvent(SDL_Event *event);
 		virtual void paint(SDL_Surface *surface) { };
 		virtual void clicked(SDL_MouseButtonEvent *event) { focus = true; };
 		virtual void leftClicked(SDL_MouseButtonEvent *event) { };
@@ -46,14 +43,11 @@ class Widget
 		std::list<Widget*> children;
 		bool focus;
 		bool blockEvents;
+		int depth;
 		SDL_Rect *geometry;
 		SDL_Surface *surface;
-
-		static int depth;
-		static bool inited;
-		static void cleanUp();
 };
 
-void runEventLoop();
+}
 
 #endif // WIDGET_H

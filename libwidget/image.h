@@ -6,6 +6,8 @@
 
 using namespace std;
 
+namespace libwidget {
+
 class Image : public Widget
 {
 	public:
@@ -19,5 +21,7 @@ class Image : public Widget
 	private:
 		SDL_Surface *image;
 };
+
+}
 
 #endif // IMAGE_H

@@ -5,7 +5,7 @@
 
 struct SDL_MouseButtonEvent;
 
-class Menu : public Rect
+class Menu : public libwidget::Rect
 {
 	public:
 		Menu();

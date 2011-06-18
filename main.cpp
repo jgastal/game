@@ -1,12 +1,16 @@
+#include "application.h"
 #include "widget.h"
 #include "menu.h"
 #include "map.h"
-#include <button.h>
+#include "button.h"
+
+using namespace libwidget;
 
 int main(int argc, char **argv)
 {
-	int width = Widget::getScreenWidth();
-	int height = Widget::getScreenHeight();
+	Application app(false, 800, 600);
+	int width = app.getScreenWidth();
+	int height = app.getScreenHeight();
 
 	Menu *menu = new Menu();
 	menu->resize(width / 5 < 200 ? 200 : width / 5, height);
@@ -20,7 +24,8 @@ int main(int argc, char **argv)
 	bt.resize(150, 50);
 	bt.move(25, 50);
 
-	Widget::runEventLoop();
+	app.run();
+
 	delete menu;
 	delete map;
 

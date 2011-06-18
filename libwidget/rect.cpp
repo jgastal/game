@@ -1,6 +1,8 @@
 #include "rect.h"
 #include <SDL.h>
 
+namespace libwidget {
+
 Rect::Rect(Widget* parent): Widget(parent)
 {
 }
@@ -19,4 +21,6 @@ SDL_Color Rect::getColor() const
 void Rect::paint(SDL_Surface* surface)
 {
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, color.r, color.g, color.b));
+}
+
 }

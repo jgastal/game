@@ -3,7 +3,7 @@
 
 #include <rect.h>
 
-class Map : public Rect
+class Map : public libwidget::Rect
 {
 	public:
 		Map();

@@ -3,12 +3,11 @@
 #include <SDL_ttf.h>
 #include <iostream>
 
+#include "application.h"
+
 using namespace std;
 
-//Global list of all top level widgets
-static list<Widget*> __widgetList;
-int Widget::depth = 0;
-bool Widget::inited = false;
+namespace libwidget {
 
 SDL_Color Widget::red = {0xff, 0, 0, 0};
 SDL_Color Widget::green = {0, 0xff, 0, 0};
@@ -22,11 +21,12 @@ Widget::Widget(Widget* parent)
 	if(parent)
 		parent->addChild(this);
 	geometry = new SDL_Rect();
-	if(!parent) //only top level widgets receive events directly
-		__widgetList.push_back(this);
 
-	if(!depth)
-		depth = SDL_GetVideoInfo()->vfmt->BitsPerPixel;
+	Application *app = Application::getInstance();
+	if(!parent) //only top level widgets receive events directly
+		app->widgets.push_back(this);
+	depth = app->getDepth();
+
 	surface = NULL;
 }
 
@@ -147,105 +147,4 @@ void Widget::addChild(Widget* child)
 	children.push_back(child);
 }
 
-//NOT part of Widget class but here because widget does all event handling
-void Widget::runEventLoop()
-{
-	while(true)
-	{
-		SDL_Event event;
-		while(SDL_PollEvent(&event))
-		{  /* Loop until there are no events left on the queue */
-			if(event.type == SDL_QUIT) //quit loop on alt+f4
-				return;
-			for(list<Widget*>::iterator it = __widgetList.begin(); it != __widgetList.end(); it++)
-				(*it)->processEvent(&event);
-		}
-		//when do I render?! always is overkill!
-		for(list<Widget*>::iterator it = __widgetList.begin(); it != __widgetList.end(); it++)
-			(*it)->render(SDL_GetVideoSurface());;
-		//done processing events, repaint screen
-		SDL_Flip(SDL_GetVideoSurface());
-		SDL_Delay(0);
-	}
-}
-
-void Widget::init()
-{
-	if(inited)
-		return;
-#ifndef DEBUG
-	Uint32 displayFlags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_ANYFORMAT | SDL_FULLSCREEN;
-#else
-	Uint32 displayFlags = SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_ANYFORMAT;
-#endif
-
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTTHREAD) < 0)
-	{
-		cerr << "Failed to init SDL: " << SDL_GetError();
-		exit(-1);
-	}
-	atexit(SDL_Quit);
-
-	const SDL_VideoInfo *info = SDL_GetVideoInfo();
-	SDL_Rect **modes = SDL_ListModes(info->vfmt, displayFlags);
-	if(modes == (SDL_Rect**)0)
-	{
-		displayFlags |= !SDL_HWSURFACE;
-		modes = SDL_ListModes(info->vfmt, displayFlags);
-		if(modes == (SDL_Rect**)0)
-		{
-			cerr << "No video modes available.\n";
-			exit(-1);
-		}
-	}
-
-	int width = 0, height = 0;
-	if (modes == (SDL_Rect**)-1)
-	{ //no restriction on video mode, use current resolution
-		width = info->current_w;
-		height = info->current_h;
-	}
-	else
-	{ //get highest available resolution(as measured by having greatest width)
-		for(int i = 0; modes[i]; i++)
-		{
-			if(modes[i]->w >= width)
-			{
-				width = modes[i]->w;
-				height = modes[i]->h;
-			}
-		}
-	}
-#ifdef DEBUG
-	width = 800;
-	height = 600;
-#endif
-
-	if(SDL_SetVideoMode(width, height, info->vfmt->BitsPerPixel, displayFlags))
-		atexit(Widget::cleanUp);
-
-	if(TTF_Init())
-	{
-		cerr << "Failed to initialize SDL_ttf\n";
-		return;
-	}
-
-	inited = true;
-}
-
-void Widget::cleanUp()
-{
-	SDL_FreeSurface(SDL_GetVideoSurface());
-}
-
-int Widget::getScreenWidth()
-{
-	init();
-	return SDL_GetVideoSurface()->w;
-}
-
-int Widget::getScreenHeight()
-{
-	init();
-	return SDL_GetVideoSurface()->h;
 }
