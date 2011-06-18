@@ -114,9 +114,7 @@ void Application::run()
 	{
 		SDL_Event event;
 		while(SDL_PollEvent(&event))
-		{  /* Loop until there are no events left on the queue */
-			if(event.type == SDL_QUIT) //quit loop on alt+f4
-				return;
+		{  // Loop until there are no events left on the queue
 			for(list<Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++)
 				(*it)->processEvent(&event);
 		}
@@ -127,6 +125,11 @@ void Application::run()
 		SDL_Flip(SDL_GetVideoSurface());
 		SDL_Delay(0);
 	}
+}
+
+void Application::stop()
+{
+	running = false;
 }
 
 Application* Application::getInstance()

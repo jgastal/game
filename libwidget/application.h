@@ -13,6 +13,7 @@ class Application
 		Application(bool fullscreen = true, int w = 800, int h = 600);
 		virtual ~Application();
 		void run();
+		void stop();
 		int getScreenWidth();
 		int getScreenHeight();
 		int getDepth();

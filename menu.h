@@ -11,6 +11,7 @@ class Menu : public libwidget::Rect
 		Menu();
 
 	protected:
+		virtual void processEvent(SDL_Event* event);
 		virtual void leftClicked(SDL_MouseButtonEvent* event);
 
 	private:
