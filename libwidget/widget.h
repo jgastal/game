@@ -4,6 +4,15 @@
 #include <list>
 #include <SDL.h>
 
+/*
+ * TODO:
+ * 	- Does move need to update?
+ * 	- Does update need to update children?
+ * 	- Render should be private
+ * 	- Decide rendering strategy
+ * 	- Clipping
+ */
+
 namespace libwidget {
 
 class Widget
@@ -38,7 +47,6 @@ class Widget
 		virtual void keyEvent(SDL_KeyboardEvent *event) { };
 
 	private:
-		void addChild(Widget *child);
 		Widget *parent;
 		std::list<Widget*> children;
 		bool focus;

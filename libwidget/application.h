@@ -20,6 +20,7 @@ class Application
 
 	private:
 		friend Widget::Widget(Widget *parent);
+		friend Widget::~Widget();
 		std::list<Widget*> widgets;
 		bool running;
 		int depth;

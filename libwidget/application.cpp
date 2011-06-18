@@ -83,6 +83,13 @@ Application::Application(bool fullscreen, int w, int h)
 Application::~Application()
 {
 	SDL_FreeSurface(SDL_GetVideoSurface());
+#ifdef LIBWIDGET_AUTO_FREE
+	while(widgets.size())
+		widgets.pop_front();
+#else
+	if(widgets.size() > 0)
+		cerr << "SPANK SPANK SPANK\nSome widgets are still live.\n";
+#endif
 }
 
 void Application::exiting()

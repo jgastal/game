@@ -1,6 +1,5 @@
 #include "widget.h"
 #include <SDL.h>
-#include <SDL_ttf.h>
 #include <iostream>
 
 #include "application.h"
@@ -19,7 +18,7 @@ Widget::Widget(Widget* parent)
 {
 	blockEvents = false;
 	if(parent)
-		parent->addChild(this);
+		parent->children.push_back(this);
 	geometry = new SDL_Rect();
 
 	Application *app = Application::getInstance();
@@ -27,12 +26,19 @@ Widget::Widget(Widget* parent)
 		app->widgets.push_back(this);
 	depth = app->getDepth();
 
+	this->parent = parent;
 	surface = NULL;
 }
 
 Widget::~Widget()
 {
 	delete geometry;
+	if(parent)
+		parent->children.remove(this);
+	else
+		Application::getInstance()->widgets.remove(this);
+	while(children.size())
+		children.pop_front();
 }
 
 SDL_Rect Widget::getGeometry() const
@@ -140,11 +146,6 @@ bool Widget::contains(int x, int y)
 	if(x < geometry->x || x > geometry->x + geometry->w || y < geometry->y || y > geometry->y + geometry->h)
 		return false;
 	return true;
-}
-
-void Widget::addChild(Widget* child)
-{
-	children.push_back(child);
 }
 
 }
