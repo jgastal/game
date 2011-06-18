@@ -8,7 +8,7 @@ class Widget
 {
 	public:
 		Widget(Widget *parent = 0);
-		~Widget();
+		virtual ~Widget();
 		SDL_Rect getGeometry() const;
 		std::list<Widget*> getChildren() const;
 		bool getBlockEvents() const;

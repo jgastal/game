@@ -137,9 +137,7 @@ void Widget::render(SDL_Surface* target)
 
 bool Widget::contains(int x, int y)
 {
-	if(x < geometry->x || x > geometry->x + geometry->w)
-		return false;
-	if(y < geometry->y || y > geometry->y + geometry->h)
+	if(x < geometry->x || x > geometry->x + geometry->w || y < geometry->y || y > geometry->y + geometry->h)
 		return false;
 	return true;
 }
