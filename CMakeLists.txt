@@ -1,3 +1,6 @@
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
+
 project(game)
 cmake_minimum_required(VERSION 2.6)
 

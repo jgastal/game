@@ -10,11 +10,11 @@ static list<Widget*> __widgetList;
 int Widget::depth = 0;
 bool Widget::inited = false;
 
-SDL_Color Widget::red = SDL_Color{0xff, 0, 0, 0};
-SDL_Color Widget::green = SDL_Color{0, 0xff, 0, 0};
-SDL_Color Widget::blue = SDL_Color{0, 0, 0xff, 0};
-SDL_Color Widget::black = SDL_Color{0, 0, 0, 0};
-SDL_Color Widget::white = SDL_Color{0xff, 0xff, 0xff, 0};
+SDL_Color Widget::red = {0xff, 0, 0, 0};
+SDL_Color Widget::green = {0, 0xff, 0, 0};
+SDL_Color Widget::blue = {0, 0, 0xff, 0};
+SDL_Color Widget::black = {0, 0, 0, 0};
+SDL_Color Widget::white = {0xff, 0xff, 0xff, 0};
 
 Widget::Widget(Widget* parent)
 {
@@ -128,11 +128,11 @@ void Widget::render(SDL_Surface* target)
 	//render all my children on me
 	for(list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
 		(*it)->render(surface);
-	SDL_Rect *size = (SDL_Rect*)calloc(sizeof(SDL_Rect), 1);
-	size->w = geometry->w;
-	size->h = geometry->h;
-	SDL_BlitSurface(surface, size, target, &getGeometry());
-	free(size);
+	SDL_Rect size = *geometry;
+	size.x = size.y = 0;
+	SDL_Rect t = *geometry;
+	t.w = t.h = 0;
+	SDL_BlitSurface(surface, &size, target, &t);
 }
 
 bool Widget::contains(int x, int y)
