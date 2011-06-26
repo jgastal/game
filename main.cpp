@@ -6,11 +6,17 @@
 
 using namespace libwidget;
 
+void stop()
+{
+	Application::getInstance()->stop();
+}
+
 int main(int argc, char **argv)
 {
 	Application app(false, 800, 600);
 	int width = app.getScreenWidth();
 	int height = app.getScreenHeight();
+	app.onCloseRequested(&stop);
 
 	Menu *menu = new Menu();
 	menu->resize(width / 5 < 200 ? 200 : width / 5, height);

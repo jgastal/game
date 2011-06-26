@@ -115,6 +115,8 @@ void Application::run()
 		SDL_Event event;
 		while(SDL_PollEvent(&event))
 		{  // Loop until there are no events left on the queue
+			if(event.type == SDL_QUIT)
+				closeRequested();
 			for(list<Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++)
 				(*it)->processEvent(&event);
 		}
@@ -140,6 +142,11 @@ Application* Application::getInstance()
 int Application::getDepth()
 {
 	return depth;
+}
+
+void Application::onCloseRequested(closeSignal::slot_function_type listener)
+{
+	closeRequested.connect(listener);
 }
 
 }
