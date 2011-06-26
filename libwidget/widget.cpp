@@ -148,4 +148,29 @@ bool Widget::contains(int x, int y)
 	return true;
 }
 
+boost::signals::connection Widget::onClicked(mouseSignal::slot_function_type listener)
+{
+	return clicked.connect(listener);
+}
+
+boost::signals::connection Widget::onLeftClicked(mouseSignal::slot_function_type listener)
+{
+	return leftClicked.connect(listener);
+}
+
+boost::signals::connection Widget::onRightClicked(mouseSignal::slot_function_type listener)
+{
+	return rightClicked.connect(listener);
+}
+
+boost::signals::connection Widget::onMiddleClicked(mouseSignal::slot_function_type listener)
+{
+	return middleClicked.connect(listener);
+}
+
+boost::signals::connection Widget::onKeyPressed(keySignal::slot_function_type listener)
+{
+	return keyPressed.connect(listener);
+}
+
 }

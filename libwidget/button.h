@@ -22,7 +22,6 @@ class Button : public Image
 
 	protected:
 		virtual void paint(SDL_Surface* surface);
-		virtual void leftClicked(SDL_MouseButtonEvent* event);
 
 	private:
 		string text;

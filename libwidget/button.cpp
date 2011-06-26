@@ -64,9 +64,4 @@ void Button::paint(SDL_Surface* surface)
 	SDL_BlitSurface(textSurface, NULL, surface, &pos);
 }
 
-void Button::leftClicked(SDL_MouseButtonEvent* event)
-{
-	//do something to image to make it seem clicked
-}
-
 }

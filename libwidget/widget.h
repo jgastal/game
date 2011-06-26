@@ -3,13 +3,13 @@
 
 #include <list>
 #include <SDL.h>
+#include <boost/signal.hpp>
 
 /*
  * TODO:
- * 	- Does move need to update?
  * 	- Does update need to update children?
  * 	- Render should be private
- * 	- Decide rendering strategy
+ * 	- Render only if updated
  * 	- Clipping
  */
 
@@ -17,6 +17,9 @@ namespace libwidget {
 
 class Widget
 {
+	typedef boost::signal<void(SDL_MouseButtonEvent*)> mouseSignal;
+	typedef boost::signal<void(SDL_KeyboardEvent*)> keySignal;
+
 	public:
 		Widget(Widget *parent = 0);
 		virtual ~Widget();
@@ -31,6 +34,12 @@ class Widget
 		void render(SDL_Surface *target);
 		virtual void processEvent(SDL_Event *event);
 
+		boost::signals::connection onClicked(mouseSignal::slot_function_type listener);
+		boost::signals::connection onLeftClicked(mouseSignal::slot_function_type listener);
+		boost::signals::connection onRightClicked(mouseSignal::slot_function_type listener);
+		boost::signals::connection onMiddleClicked(mouseSignal::slot_function_type listener);
+		boost::signals::connection onKeyPressed(keySignal::slot_function_type listener);
+
 		static SDL_Color red;
 		static SDL_Color blue;
 		static SDL_Color green;
@@ -39,10 +48,6 @@ class Widget
 
 	protected:
 		virtual void paint(SDL_Surface *surface) { };
-		virtual void clicked(SDL_MouseButtonEvent *event) { focus = true; };
-		virtual void leftClicked(SDL_MouseButtonEvent *event) { };
-		virtual void rightClicked(SDL_MouseButtonEvent *event) { };
-		virtual void middleClicked(SDL_MouseButtonEvent *event) { };
 		virtual void mouseMoved(SDL_MouseMotionEvent *event) { };
 		virtual void keyEvent(SDL_KeyboardEvent *event) { };
 
@@ -54,6 +59,13 @@ class Widget
 		int depth;
 		SDL_Rect *geometry;
 		SDL_Surface *surface;
+
+		//signals
+		boost::signal<void(SDL_MouseButtonEvent*)> clicked;
+		boost::signal<void(SDL_MouseButtonEvent*)> leftClicked;
+		boost::signal<void(SDL_MouseButtonEvent*)> rightClicked;
+		boost::signal<void(SDL_MouseButtonEvent*)> middleClicked;
+		boost::signal<void(SDL_KeyboardEvent*)> keyPressed;
 };
 
 }

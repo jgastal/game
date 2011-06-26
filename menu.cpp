@@ -1,5 +1,7 @@
 #include "menu.h"
 #include "application.h"
+#include <boost/signal.hpp>
+#include <boost/bind.hpp>
 
 using namespace libwidget;
 
@@ -7,21 +9,26 @@ Menu::Menu()
 {
 	status = true;
 	setColor(blue);
+	onClicked(boost::bind(&Menu::changeColor, this, _1));
+
+	bt = new Rect(this);
+	bt->setColor(Widget::white);
+	bt->resize(150, 50);
+	bt->move(25, 50);
+
+	bt->onClicked(boost::bind(&Menu::close, this, _1));
 }
 
-void Menu::processEvent(SDL_Event* event)
-{
-	if(event->type == SDL_QUIT)
-		Application::getInstance()->stop();
-	else
-		libwidget::Widget::processEvent(event);
-}
-
-void Menu::leftClicked(SDL_MouseButtonEvent* event)
+void Menu::changeColor(SDL_MouseButtonEvent* event)
 {
 	status = !status;
 	if(status)
 		setColor(blue);
 	else
 		setColor(red);
+}
+
+void Menu::close(SDL_MouseButtonEvent *ev)
+{
+	Application::getInstance()->stop();
 }

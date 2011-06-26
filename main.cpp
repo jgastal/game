@@ -18,12 +18,6 @@ int main(int argc, char **argv)
 	Map *map = new Map();
 	map->resize(width - menu->getGeometry().w, height);
 
-	Button bt(menu);
-	bt.setText("Button");
-	bt.setImage("bt.png");
-	bt.resize(150, 50);
-	bt.move(25, 50);
-
 	app.run();
 
 	delete menu;

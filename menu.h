@@ -9,13 +9,12 @@ class Menu : public libwidget::Rect
 {
 	public:
 		Menu();
-
-	protected:
-		virtual void processEvent(SDL_Event* event);
-		virtual void leftClicked(SDL_MouseButtonEvent* event);
+		void changeColor(SDL_MouseButtonEvent* event);
 
 	private:
+		void close(SDL_MouseButtonEvent *ev);
 		bool status;
+		Rect *bt;
 };
 
 #endif // MENU_H
