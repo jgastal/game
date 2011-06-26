@@ -1,7 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <rect.h>
+#include "rect.h"
 
 struct SDL_MouseButtonEvent;
 
