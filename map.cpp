@@ -2,5 +2,5 @@
 
 Map::Map()
 {
-	setColor(green);
+	setColor(libwidget::green);
 }

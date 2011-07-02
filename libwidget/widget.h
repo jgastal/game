@@ -15,6 +15,12 @@
 
 namespace libwidget {
 
+static SDL_Color red = {0xff, 0, 0, 0};
+static SDL_Color green = {0, 0xff, 0, 0};
+static SDL_Color blue = {0, 0, 0xff, 0};
+static SDL_Color black = {0, 0, 0, 0};
+static SDL_Color white = {0xff, 0xff, 0xff, 0};
+
 class Widget
 {
 	typedef boost::signal<void(SDL_MouseButtonEvent*)> mouseSignal;
@@ -39,12 +45,6 @@ class Widget
 		boost::signals::connection onRightClicked(mouseSignal::slot_function_type listener);
 		boost::signals::connection onMiddleClicked(mouseSignal::slot_function_type listener);
 		boost::signals::connection onKeyPressed(keySignal::slot_function_type listener);
-
-		static SDL_Color red;
-		static SDL_Color blue;
-		static SDL_Color green;
-		static SDL_Color black;
-		static SDL_Color white;
 
 	protected:
 		virtual void paint(SDL_Surface *surface) { };

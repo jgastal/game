@@ -12,7 +12,7 @@ Menu::Menu()
 	onClicked(boost::bind(&Menu::changeColor, this, _1));
 
 	bt = new Rect(this);
-	bt->setColor(Widget::white);
+	bt->setColor(white);
 	bt->resize(150, 50);
 	bt->move(25, 50);
 

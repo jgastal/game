@@ -8,12 +8,6 @@ using namespace std;
 
 namespace libwidget {
 
-SDL_Color Widget::red = {0xff, 0, 0, 0};
-SDL_Color Widget::green = {0, 0xff, 0, 0};
-SDL_Color Widget::blue = {0, 0, 0xff, 0};
-SDL_Color Widget::black = {0, 0, 0, 0};
-SDL_Color Widget::white = {0xff, 0xff, 0xff, 0};
-
 Widget::Widget(Widget* parent)
 {
 	blockEvents = false;

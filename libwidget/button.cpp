@@ -14,7 +14,7 @@ Button::Button(Widget* parent): Image(parent)
 	//default values
 	fontSize = 12;
 	setFont("arial.ttf");
-	color = Widget::black;
+	color = black;
 }
 
 Button::~Button()
