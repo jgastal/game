@@ -2,7 +2,7 @@
 #define APPLICATION_H
 
 #include <list>
-#include <boost/signal.hpp>
+#include "signal.h"
 #include "widget.h"
 
 namespace libwidget
@@ -20,7 +20,7 @@ class Application
 		int getScreenHeight();
 		int getDepth();
 		static Application *getInstance();
-		void onCloseRequested(closeSignal::slot_function_type listener);
+		void onCloseRequested(Signal::FuncPtr listener);
 
 	private:
 		friend Widget::Widget(Widget *parent);
@@ -30,7 +30,7 @@ class Application
 		int depth;
 		static void exiting();
 		static Application *instance;
-		boost::signal<void()> closeRequested;
+		Signal closeRequested;
 };
 
 }

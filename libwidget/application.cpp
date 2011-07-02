@@ -145,7 +145,7 @@ int Application::getDepth()
 	return depth;
 }
 
-void Application::onCloseRequested(closeSignal::slot_function_type listener)
+void Application::onCloseRequested(Signal::FuncPtr listener)
 {
 	closeRequested.connect(listener);
 }

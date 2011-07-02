@@ -3,6 +3,7 @@ find_package(Boost 1.40.0 REQUIRED COMPONENTS signals)
 include_directories(${Boost_INCLUDE_DIRS})
 
 set(SOURCES
+	signal.cpp
 	application.cpp
 	widget.cpp
 	rect.cpp
