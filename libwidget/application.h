@@ -8,6 +8,10 @@
 namespace libwidget
 {
 
+/*
+ * TODO:
+ * 	- Remove friends
+ */
 class Application
 {
 	public:
