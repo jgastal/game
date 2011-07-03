@@ -23,7 +23,6 @@ Application::Application(bool fullscreen, int w, int h)
 		cerr << "Failed to init SDL: " << SDL_GetError();
 		exit(-1);
 	}
-	atexit(SDL_Quit);
 
 	const SDL_VideoInfo *info = SDL_GetVideoInfo();
 	SDL_Rect **modes = SDL_ListModes(info->vfmt, displayFlags);
@@ -90,6 +89,7 @@ Application::~Application()
 	if(widgets.size() > 0)
 		cerr << "SPANK SPANK SPANK\nSome widgets are still live.\n";
 #endif
+	SDL_Quit();
 }
 
 void Application::exiting()
