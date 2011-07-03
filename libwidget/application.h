@@ -19,7 +19,7 @@ class Application
 		int getScreenHeight();
 		int getDepth();
 		static Application *getInstance();
-		void onCloseRequested(Signal<>::FuncPtr listener);
+		void onCloseRequested(Signal<>::Slot listener);
 
 	private:
 		friend Widget::Widget(Widget *parent);
