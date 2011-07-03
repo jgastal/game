@@ -129,6 +129,7 @@ void Widget::render(SDL_Surface* target)
 {
 	if(!updated)
 		return;
+	paint(surface);
 	//render all my children on me
 	for(list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
 		(*it)->render(surface);
