@@ -27,6 +27,8 @@ Widget::Widget(Widget* parent)
 Widget::~Widget()
 {
 	delete geometry;
+	if(surface)
+		SDL_FreeSurface(surface);
 	if(parent)
 		parent->children.remove(this);
 	else
