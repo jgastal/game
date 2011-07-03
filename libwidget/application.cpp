@@ -23,6 +23,7 @@ Application::Application(bool fullscreen, int w, int h)
 		cerr << "Failed to init SDL: " << SDL_GetError();
 		exit(-1);
 	}
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 
 	const SDL_VideoInfo *info = SDL_GetVideoInfo();
 	SDL_Rect **modes = SDL_ListModes(info->vfmt, displayFlags);
@@ -123,7 +124,7 @@ void Application::run()
 		}
 		//when do I render?! always is overkill!
 		for(list<Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++)
-			(*it)->render(SDL_GetVideoSurface());;
+			(*it)->render(SDL_GetVideoSurface());
 		//done processing events, repaint screen
 		SDL_Flip(SDL_GetVideoSurface());
 		SDL_Delay(0);
