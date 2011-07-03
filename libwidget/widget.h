@@ -8,7 +8,6 @@
 /*
  * TODO:
  * 	- Render should be private
- * 	- Clipping
  */
 
 namespace libwidget {
