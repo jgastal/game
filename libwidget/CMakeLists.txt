@@ -4,6 +4,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 set(SOURCES
 	signal.hpp
+	slot.hpp
 	application.cpp
 	widget.cpp
 	rect.cpp
