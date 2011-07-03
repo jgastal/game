@@ -7,9 +7,7 @@
 
 /*
  * TODO:
- * 	- Does update need to update children?
  * 	- Render should be private
- * 	- Render only if updated
  * 	- Clipping
  */
 
@@ -56,6 +54,7 @@ class Widget
 		std::list<Widget*> children;
 		bool focus;
 		bool blockEvents;
+		bool updated;
 		int depth;
 		SDL_Rect *geometry;
 		SDL_Surface *surface;

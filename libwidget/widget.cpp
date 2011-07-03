@@ -8,9 +8,8 @@ using namespace std;
 
 namespace libwidget {
 
-Widget::Widget(Widget* parent)
+Widget::Widget(Widget* parent) : blockEvents(false), updated(false), parent(parent), surface(NULL)
 {
-	blockEvents = false;
 	if(parent)
 		parent->children.push_back(this);
 	geometry = new SDL_Rect();
@@ -19,9 +18,6 @@ Widget::Widget(Widget* parent)
 	if(!parent) //only top level widgets receive events directly
 		app->widgets.push_back(this);
 	depth = app->getDepth();
-
-	this->parent = parent;
-	surface = NULL;
 }
 
 Widget::~Widget()
@@ -127,10 +123,15 @@ void Widget::update()
 			surface = SDL_CreateRGBSurface(SDL_HWSURFACE, geometry->w, geometry->h, depth, 0, 0, 0, 0);
 		paint(surface);
 	}
+	updated = true;
+	for(list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
+		(*it)->updated = true;
 }
 
 void Widget::render(SDL_Surface* target)
 {
+	if(!updated)
+		return;
 	//render all my children on me
 	for(list<Widget*>::iterator it = children.begin(); it != children.end(); it++)
 		(*it)->render(surface);
@@ -139,6 +140,7 @@ void Widget::render(SDL_Surface* target)
 	SDL_Rect t = *geometry;
 	t.w = t.h = 0;
 	SDL_BlitSurface(surface, &size, target, &t);
+	updated = false;
 }
 
 bool Widget::contains(int x, int y)
