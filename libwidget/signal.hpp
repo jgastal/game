@@ -11,6 +11,7 @@ class Signal
 {
 	public:
 		typedef _BaseSlot<Args...>* Slot;
+		~Signal() { for(int i = 0; i < slots.size(); i++) delete slots[i]; };
 
 		void connect(Slot s) { slots.push_back(s); };
 		void operator()(Args ...args)
