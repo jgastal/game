@@ -10,22 +10,30 @@ template <typename ...Args>
 class Signal
 {
 	public:
-		typedef void (*FuncPtr)(Args ...args);
+		typedef _BaseSlot<Args...>* Slot;
 
-		void connect(FuncPtr func) { listeners.push_back(func); };
-		void connect(_BaseSlot<Args...> *s) { slots.push_back(s); };
+		void connect(Slot s) { slots.push_back(s); };
 		void operator()(Args ...args)
 		{
-			for(int i = 0; i < listeners.size(); i++)
-				listeners[i](args...);
 			for(int i = 0; i < slots.size(); i++)
 				(*slots[i])(args...);
 		};
 
 	private:
-		std::vector<FuncPtr> listeners;
-		std::vector<_BaseSlot<Args...>*> slots;
+		std::vector<Slot> slots;
 };
+
+template <typename T, typename ...Args>
+typename Signal<Args...>::Slot bind(T *obj, void (T::*method)(Args ...args))
+{
+	return new MethodSlot<T, Args...>(obj, method);
+}
+
+template <typename ...Args>
+typename Signal<Args...>::Slot bind(void (*f)(Args ...args))
+{
+	return new FunctionSlot<Args...>(f);
+}
 
 }
 
