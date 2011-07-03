@@ -3,7 +3,7 @@
 
 #include <list>
 #include <SDL.h>
-#include <boost/signal.hpp>
+#include "signal.hpp"
 
 /*
  * TODO:
@@ -23,8 +23,8 @@ static SDL_Color white = {0xff, 0xff, 0xff, 0};
 
 class Widget
 {
-	typedef boost::signal<void(SDL_MouseButtonEvent*)> mouseSignal;
-	typedef boost::signal<void(SDL_KeyboardEvent*)> keySignal;
+	typedef Signal<SDL_MouseButtonEvent*> mouseSignal;
+	typedef Signal<SDL_KeyboardEvent*> keySignal;
 
 	public:
 		Widget(Widget *parent = 0);
@@ -40,11 +40,11 @@ class Widget
 		void render(SDL_Surface *target);
 		virtual void processEvent(SDL_Event *event);
 
-		boost::signals::connection onClicked(mouseSignal::slot_function_type listener);
-		boost::signals::connection onLeftClicked(mouseSignal::slot_function_type listener);
-		boost::signals::connection onRightClicked(mouseSignal::slot_function_type listener);
-		boost::signals::connection onMiddleClicked(mouseSignal::slot_function_type listener);
-		boost::signals::connection onKeyPressed(keySignal::slot_function_type listener);
+		void onClicked(mouseSignal::Slot listener);
+		void onLeftClicked(mouseSignal::Slot listener);
+		void onRightClicked(mouseSignal::Slot listener);
+		void onMiddleClicked(mouseSignal::Slot listener);
+		void onKeyPressed(keySignal::Slot listener);
 
 	protected:
 		virtual void paint(SDL_Surface *surface) { };
@@ -61,11 +61,11 @@ class Widget
 		SDL_Surface *surface;
 
 		//signals
-		boost::signal<void(SDL_MouseButtonEvent*)> clicked;
-		boost::signal<void(SDL_MouseButtonEvent*)> leftClicked;
-		boost::signal<void(SDL_MouseButtonEvent*)> rightClicked;
-		boost::signal<void(SDL_MouseButtonEvent*)> middleClicked;
-		boost::signal<void(SDL_KeyboardEvent*)> keyPressed;
+		Signal<SDL_MouseButtonEvent*> clicked;
+		Signal<SDL_MouseButtonEvent*> leftClicked;
+		Signal<SDL_MouseButtonEvent*> rightClicked;
+		Signal<SDL_MouseButtonEvent*> middleClicked;
+		Signal<SDL_KeyboardEvent*> keyPressed;
 };
 
 }

@@ -27,5 +27,8 @@ include_directories(${SDLIMAGE_INCLUDE_DIR})
 find_package(SDL_ttf REQUIRED)
 include_directories(${SDLTTF_INCLUDE_DIR})
 
+add_subdirectory(libsignal)
+include_directories(libsignal)
+
 add_subdirectory(libwidget)
 include_directories(libwidget)
