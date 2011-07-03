@@ -34,7 +34,11 @@ Widget::~Widget()
 	else
 		Application::getInstance()->widgets.remove(this);
 	while(children.size())
-		children.pop_front();
+	{
+		Widget *w = children.back();
+		children.remove(w);
+		delete w;
+	}
 }
 
 SDL_Rect Widget::getGeometry() const
