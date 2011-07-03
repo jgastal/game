@@ -3,7 +3,7 @@ find_package(Boost 1.40.0 REQUIRED COMPONENTS signals)
 include_directories(${Boost_INCLUDE_DIRS})
 
 set(SOURCES
-	signal.cpp
+	signal.hpp
 	application.cpp
 	widget.cpp
 	rect.cpp
@@ -11,6 +11,8 @@ set(SOURCES
 	image.cpp)
 
 option(LIBWIDGET_AUTO_FREE "Delete all widgets on application end" OFF)
+
+add_definitions(-Wno-c++0x-extensions)
 
 if(LIBWIDGET_AUTO_FREE)
 	add_definitions(-DLIBWIDGET_AUTO_FREE)

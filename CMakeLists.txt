@@ -13,6 +13,8 @@ set( SOURCES
 	menu.cpp
 	main.cpp )
 
+add_definitions(-Wno-c++0x-extensions)
+
 add_executable(game ${SOURCES})
 target_link_libraries(game widget)
 

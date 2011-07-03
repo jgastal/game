@@ -2,7 +2,7 @@
 #define APPLICATION_H
 
 #include <list>
-#include "signal.h"
+#include "signal.hpp"
 #include "widget.h"
 
 namespace libwidget
@@ -10,7 +10,6 @@ namespace libwidget
 
 class Application
 {
-	typedef boost::signal<void()> closeSignal;
 	public:
 		Application(bool fullscreen = true, int w = 800, int h = 600);
 		virtual ~Application();
@@ -20,7 +19,7 @@ class Application
 		int getScreenHeight();
 		int getDepth();
 		static Application *getInstance();
-		void onCloseRequested(Signal::FuncPtr listener);
+		void onCloseRequested(Signal<>::FuncPtr listener);
 
 	private:
 		friend Widget::Widget(Widget *parent);
@@ -30,7 +29,7 @@ class Application
 		int depth;
 		static void exiting();
 		static Application *instance;
-		Signal closeRequested;
+		Signal<> closeRequested;
 };
 
 }

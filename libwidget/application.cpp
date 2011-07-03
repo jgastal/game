@@ -145,7 +145,7 @@ int Application::getDepth()
 	return depth;
 }
 
-void Application::onCloseRequested(Signal::FuncPtr listener)
+void Application::onCloseRequested(Signal<>::FuncPtr listener)
 {
 	closeRequested.connect(listener);
 }
