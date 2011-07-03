@@ -89,6 +89,7 @@ Application::~Application()
 	if(widgets.size() > 0)
 		cerr << "SPANK SPANK SPANK\nSome widgets are still live.\n";
 #endif
+	TTF_Quit();
 	SDL_Quit();
 }
 
