@@ -45,8 +45,6 @@ class Widget
 
 	protected:
 		virtual void paint(SDL_Surface *surface) { };
-		virtual void mouseMoved(SDL_MouseMotionEvent *event) { };
-		virtual void keyEvent(SDL_KeyboardEvent *event) { };
 
 	private:
 		Widget *parent;

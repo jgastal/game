@@ -79,11 +79,8 @@ void Widget::processEvent(SDL_Event* event)
 				}
 			}
 			break;
-		case SDL_MOUSEMOTION:
-			mouseMoved(&(event->motion));
-			break;
 		case SDL_KEYDOWN:
-			keyEvent(&(event->key));
+			keyPressed(&(event->key));
 			break;
 	}
 	if(!blockEvents)
@@ -152,27 +149,27 @@ bool Widget::contains(int x, int y)
 
 void Widget::onClicked(mouseSignal::Slot listener)
 {
-	return clicked.connect(listener);
+	clicked.connect(listener);
 }
 
 void Widget::onLeftClicked(mouseSignal::Slot listener)
 {
-	return leftClicked.connect(listener);
+	leftClicked.connect(listener);
 }
 
 void Widget::onRightClicked(mouseSignal::Slot listener)
 {
-	return rightClicked.connect(listener);
+	rightClicked.connect(listener);
 }
 
 void Widget::onMiddleClicked(mouseSignal::Slot listener)
 {
-	return middleClicked.connect(listener);
+	middleClicked.connect(listener);
 }
 
 void Widget::onKeyPressed(keySignal::Slot listener)
 {
-	return keyPressed.connect(listener);
+	keyPressed.connect(listener);
 }
 
 }
