@@ -4,7 +4,7 @@
 
 namespace libwidget {
 
-Image::Image(Widget *parent) : Widget(parent)
+Image::Image(Widget *parent) : Widget(parent), imgWidth(0), imgHeight(0), offX(0), offY(0)
 {
 	image = NULL;
 }
@@ -20,6 +20,8 @@ void Image::setImage(string i)
 	if(image)
 		SDL_FreeSurface(image);
 	image = IMG_Load(i.c_str());
+	imgWidth = image->w;
+	imgHeight = image->h;
 	update();
 }
 
@@ -27,7 +29,19 @@ void Image::paint(SDL_Surface* surface)
 {
 	if(!image)
 		return;
-	SDL_BlitSurface(image, NULL, surface, NULL);
+	SDL_Rect src = {offX, offY, imgWidth, imgHeight};
+	SDL_BlitSurface(image, &src, surface, NULL);
 }
+
+int Image::getImgHeight() const
+{
+	return imgHeight;
+}
+
+int Image::getImgWidth() const
+{
+	return imgWidth;
+}
+
 
 }

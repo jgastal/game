@@ -14,12 +14,16 @@ class Image : public Widget
 		Image(Widget *parent = 0);
 		~Image();
 		void setImage(string name);
+		int getImgWidth() const;
+		int getImgHeight() const;
 
 	protected:
 		virtual void paint(SDL_Surface* surface);
+		int offX, offY;
 
 	private:
 		SDL_Surface *image;
+		int imgWidth, imgHeight;
 };
 
 }
