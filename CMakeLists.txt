@@ -18,6 +18,11 @@ add_definitions(-Wno-c++0x-extensions)
 add_executable(game ${SOURCES})
 target_link_libraries(game widget)
 
+add_custom_command(TARGET game POST_BUILD
+    COMMAND cmake -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/res"
+    "${CMAKE_CURRENT_BINARY_DIR}/res/"
+    )
+
 find_package(SDL REQUIRED)
 include_directories(${SDL_INCLUDE_DIR})
 

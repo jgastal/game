@@ -8,10 +8,6 @@ using namespace libwidget;
 
 Map::Map()
 {
-	setImage("grass.png");
-	imgWidth = getImgWidth();
-	imgHeight = getImgHeight();
-
 	player = new Rect(this);
 	player->resize(10, 10);
 	player->move(MIN_DIST, MIN_DIST);
@@ -25,6 +21,13 @@ void Map::resize(int w, int h)
 	libwidget::Widget::resize(w, h);
 	width = w;
 	height = h;
+}
+
+void Map::setImage(string img)
+{
+	Image::setImage(img);
+	imgWidth = getImgWidth();
+	imgHeight = getImgHeight();
 }
 
 void Map::movePlayer(SDL_KeyboardEvent* ev)

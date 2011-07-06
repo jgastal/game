@@ -1,7 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "rect.h"
+#include "button.h"
 
 struct SDL_MouseButtonEvent;
 
@@ -14,7 +14,7 @@ class Menu : public libwidget::Rect
 	private:
 		void close(SDL_MouseButtonEvent *ev);
 		bool status;
-		Rect *bt;
+		libwidget::Button *bt;
 };
 
 #endif // MENU_H

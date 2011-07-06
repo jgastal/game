@@ -14,6 +14,7 @@ class Map : public Image
 	public:
 		Map();
 		virtual void resize(int w, int h);
+		virtual void setImage(string img);
 
 	private:
 		void movePlayer(SDL_KeyboardEvent *ev);

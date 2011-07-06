@@ -19,10 +19,11 @@ int main(int argc, char **argv)
 	app.onCloseRequested(bind(&stop));
 
 	Menu *menu = new Menu();
-	menu->resize(width / 5 < 200 ? 200 : width / 5, height);
-	menu->move(width - menu->getGeometry().w, 0);
+	menu->resize(width, 100);
+	menu->move(0, height - 100);
 	Map *map = new Map();
-	map->resize(width - menu->getGeometry().w, height);
+	map->setImage("res/grass.png");
+	map->resize(width, height - 100);
 
 	app.run();
 

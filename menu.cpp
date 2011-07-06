@@ -9,10 +9,14 @@ Menu::Menu()
 	setColor(blue);
 	onClicked(bind(this, &Menu::changeColor));
 
-	bt = new Rect(this);
-	bt->setColor(white);
-	bt->resize(150, 50);
-	bt->move(25, 50);
+	bt = new Button(this);
+	bt->setFontSize(20);
+	bt->setFont("res/arial.ttf");
+	bt->setText("Quit");
+	bt->setBackgroundColor(white);
+	bt->setTextColor(black);
+	bt->resize(100, 50);
+	bt->move(25, 25);
 
 	bt->onClicked(bind(this, &Menu::close));
 }
