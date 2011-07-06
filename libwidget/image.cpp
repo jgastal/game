@@ -23,6 +23,7 @@ void Image::setImage(string i)
 	imgWidth = image->w;
 	imgHeight = image->h;
 	update();
+	imageLoaded(i);
 }
 
 void Image::paint(SDL_Surface* surface)
@@ -43,5 +44,9 @@ int Image::getImgWidth() const
 	return imgWidth;
 }
 
+void Image::onImageLoaded(stringSignal::Slot listener)
+{
+	imageLoaded.connect(listener);
+}
 
 }

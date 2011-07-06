@@ -25,6 +25,7 @@ class Widget
 {
 	typedef Signal<SDL_MouseButtonEvent*> mouseSignal;
 	typedef Signal<SDL_KeyboardEvent*> keySignal;
+	typedef Signal<int, int> iiSignal;
 
 	public:
 		Widget(Widget *parent = 0);
@@ -45,6 +46,8 @@ class Widget
 		void onRightClicked(mouseSignal::Slot listener);
 		void onMiddleClicked(mouseSignal::Slot listener);
 		void onKeyPressed(keySignal::Slot listener);
+		void onResized(iiSignal::Slot listener);
+		void onMoved(iiSignal::Slot listener);
 
 	protected:
 		virtual void paint(SDL_Surface *surface) { };
@@ -64,6 +67,8 @@ class Widget
 		Signal<SDL_MouseButtonEvent*> rightClicked;
 		Signal<SDL_MouseButtonEvent*> middleClicked;
 		Signal<SDL_KeyboardEvent*> keyPressed;
+		Signal<int, int> resized;
+		Signal<int, int> moved;
 };
 
 }

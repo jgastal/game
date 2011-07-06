@@ -107,13 +107,16 @@ void Widget::move(int x, int y)
 
 void Widget::resize(int w, int h)
 {
-	if(w == geometry->w && h == geometry->h)
+	int oldW = geometry->w;
+	int oldH = geometry->h;
+	if(w == oldW && h == oldH)
 		return;
 	geometry->w = w;
 	geometry->h = h;
 	SDL_FreeSurface(surface);
 	surface = SDL_CreateRGBSurface(SDL_HWSURFACE, geometry->w, geometry->h, depth, 0, 0, 0, 0);
 	update();
+	resized(oldW, oldH);
 }
 
 void Widget::update()
@@ -169,6 +172,16 @@ void Widget::onMiddleClicked(mouseSignal::Slot listener)
 void Widget::onKeyPressed(keySignal::Slot listener)
 {
 	keyPressed.connect(listener);
+}
+
+void Widget::onResized(iiSignal::Slot listener)
+{
+	resized.connect(listener);
+}
+
+void Widget::onMoved(iiSignal::Slot listener)
+{
+	moved.connect(listener);
 }
 
 }
