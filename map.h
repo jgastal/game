@@ -13,10 +13,10 @@ class Map : public Image
 {
 	public:
 		Map();
-		virtual void resize(int w, int h);
-		virtual void setImage(string img);
 
 	private:
+		void haveImage(string str);
+		void resized(int oldW, int oldY);
 		void movePlayer(SDL_KeyboardEvent *ev);
 		Rect *player;
 		int width, height, imgWidth, imgHeight;

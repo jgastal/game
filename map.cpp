@@ -13,21 +13,22 @@ Map::Map()
 	player->move(MIN_DIST, MIN_DIST);
 	player->setColor(blue);
 
+	onResized(bind(this, &Map::resized));
+	onImageLoaded(bind(this, &Map::haveImage));
+
 	onKeyPressed(bind(this, &Map::movePlayer));
 }
 
-void Map::resize(int w, int h)
+void Map::haveImage(string str)
 {
-	libwidget::Widget::resize(w, h);
-	width = w;
-	height = h;
-}
-
-void Map::setImage(string img)
-{
-	Image::setImage(img);
 	imgWidth = getImgWidth();
 	imgHeight = getImgHeight();
+}
+
+void Map::resized(int oldW, int oldY)
+{
+	width = getGeometry().w;
+	height = getGeometry().h;
 }
 
 void Map::movePlayer(SDL_KeyboardEvent* ev)
