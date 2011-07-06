@@ -11,10 +11,6 @@ namespace libwidget {
 Button::Button(Widget* parent): Image(parent)
 {
 	font = NULL;
-	//default values
-	fontSize = 12;
-	setFont("arial.ttf");
-	color = black;
 }
 
 Button::~Button()
@@ -29,9 +25,15 @@ void Button::setText(string t)
 	update();
 }
 
-void Button::setColor(SDL_Color c)
+void Button::setTextColor(SDL_Color c)
 {
-	color = c;
+	textColor = c;
+	update();
+}
+
+void Button::setBackgroundColor(SDL_Color c)
+{
+	bgColor = c;
 	update();
 }
 
@@ -54,10 +56,11 @@ void Button::setFontSize(int sz)
 
 void Button::paint(SDL_Surface* surface)
 {
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, bgColor.r, bgColor.g, bgColor.b));
 	Image::paint(surface);
 	if(text.empty())
 		return;
-	SDL_Surface *textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
+	SDL_Surface *textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
 	SDL_Rect pos;
 	pos.x = (surface->w - textSurface->w) / 2; //centralize
 	pos.y = (surface->h - textSurface->h) / 2; //centralize

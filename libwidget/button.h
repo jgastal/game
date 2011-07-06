@@ -2,6 +2,7 @@
 #define BUTTON_H
 
 #include "image.h"
+#include "rect.h"
 #include <string>
 
 using namespace std;
@@ -16,7 +17,8 @@ class Button : public Image
 		Button(Widget* parent = 0);
 		~Button();
 		void setText(string t);
-		void setColor(SDL_Color c);
+		void setTextColor(SDL_Color c);
+		void setBackgroundColor(SDL_Color c);
 		void setFont(string name);
 		void setFontSize(int sz);
 
@@ -25,7 +27,8 @@ class Button : public Image
 
 	private:
 		string text;
-		SDL_Color color;
+		SDL_Color bgColor;
+		SDL_Color textColor;
 		TTF_Font *font;
 		int fontSize;
 };
