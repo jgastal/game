@@ -23,7 +23,7 @@ Application::Application(bool fullscreen, int w, int h)
 		cerr << "Failed to init SDL: " << SDL_GetError();
 		exit(-1);
 	}
-	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
+	SDL_EnableKeyRepeat(100, 5);
 
 	const SDL_VideoInfo *info = SDL_GetVideoInfo();
 	SDL_Rect **modes = SDL_ListModes(info->vfmt, displayFlags);
