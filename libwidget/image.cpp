@@ -20,6 +20,8 @@ void Image::setImage(string i)
 	if(image)
 		SDL_FreeSurface(image);
 	image = IMG_Load(i.c_str());
+	if(!image)
+		return;
 	imgWidth = image->w;
 	imgHeight = image->h;
 	update();
