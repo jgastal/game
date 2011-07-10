@@ -3,7 +3,7 @@
 
 #define _CALL_MEMBER_FN(object,ptrToMember) ((object).*(ptrToMember))
 
-namespace libwidget {
+namespace libsignal {
 
 template <typename ...Args>
 class _BaseSlot

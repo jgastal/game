@@ -13,6 +13,8 @@
  * 	- Clipping
  */
 
+using namespace libsignal;
+
 namespace libwidget {
 
 static SDL_Color red = {0xff, 0, 0, 0};

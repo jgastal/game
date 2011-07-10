@@ -4,7 +4,7 @@
 #include <vector>
 #include "slot.hpp"
 
-namespace libwidget {
+namespace libsignal {
 
 template <typename ...Args>
 class Signal
