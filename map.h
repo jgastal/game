@@ -9,10 +9,10 @@ namespace libwidget {
 	class Rect;
 }
 
-class Map : public Image
+class Map : protected Image
 {
 	public:
-		Map();
+		Map(string file, int w, int h);
 
 	private:
 		void haveImage(string str);

@@ -1,34 +1,32 @@
 #include "map.h"
 
 #include "rect.h"
+#include "parser.h"
+#include "value.h"
 
 #define MIN_DIST 20
 
 using namespace libwidget;
 
-Map::Map()
+
+Map::Map(string file, int w, int h)
 {
 	player = new Rect(this);
 	player->resize(10, 10);
 	player->move(MIN_DIST, MIN_DIST);
 	player->setColor(blue);
 
-	onResized(bind(this, &Map::resized));
-	onImageLoaded(bind(this, &Map::haveImage));
-
-	onKeyPressed(bind(this, &Map::movePlayer));
-}
-
-void Map::haveImage(string str)
-{
+	pulpjson::Parser p(file.c_str());
+	pulpjson::Object obj = p.getRootObject();
+	setImage(obj["file"].asString());
 	imgWidth = getImgWidth();
 	imgHeight = getImgHeight();
-}
 
-void Map::resized(int oldW, int oldY)
-{
-	width = getGeometry().w;
-	height = getGeometry().h;
+	resize(w, h);
+	width = w;
+	height = h;
+
+	onKeyPressed(bind(this, &Map::movePlayer));
 }
 
 void Map::movePlayer(SDL_KeyboardEvent* ev)

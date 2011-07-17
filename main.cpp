@@ -22,9 +22,7 @@ int main(int argc, char **argv)
 	Menu *menu = new Menu();
 	menu->resize(width, 100);
 	menu->move(0, height - 100);
-	Map *map = new Map();
-	map->setImage("res/grass.png");
-	map->resize(width, height - 100);
+	Map *map = new Map("res/simple.map", width, height - 100);
 
 	app.run();
 

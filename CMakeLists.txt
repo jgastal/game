@@ -15,8 +15,12 @@ set( SOURCES
 
 add_definitions(-Wno-c++0x-extensions)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(json REQUIRED PulpJSON)
+include_directories(${json_INCLUDE_DIRS})
+
 add_executable(game ${SOURCES})
-target_link_libraries(game widget)
+target_link_libraries(game widget ${json_LIBRARIES})
 
 add_custom_command(TARGET game POST_BUILD
     COMMAND cmake -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/res"
