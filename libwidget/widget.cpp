@@ -149,39 +149,4 @@ bool Widget::contains(int x, int y)
 	return true;
 }
 
-void Widget::onClicked(mouseSignal::Slot listener)
-{
-	clicked.connect(listener);
-}
-
-void Widget::onLeftClicked(mouseSignal::Slot listener)
-{
-	leftClicked.connect(listener);
-}
-
-void Widget::onRightClicked(mouseSignal::Slot listener)
-{
-	rightClicked.connect(listener);
-}
-
-void Widget::onMiddleClicked(mouseSignal::Slot listener)
-{
-	middleClicked.connect(listener);
-}
-
-void Widget::onKeyPressed(keySignal::Slot listener)
-{
-	keyPressed.connect(listener);
-}
-
-void Widget::onResized(iiSignal::Slot listener)
-{
-	resized.connect(listener);
-}
-
-void Widget::onMoved(iiSignal::Slot listener)
-{
-	moved.connect(listener);
-}
-
 }

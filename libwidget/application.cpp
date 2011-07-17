@@ -146,9 +146,4 @@ int Application::getDepth()
 	return depth;
 }
 
-void Application::onCloseRequested(Signal<>::Slot listener)
-{
-	closeRequested.connect(listener);
-}
-
 }

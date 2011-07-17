@@ -6,6 +6,17 @@
 
 namespace libsignal {
 
+/**
+ * @brief Macro that creates signals and everything it needs.
+ *
+ * @warning @b only use this macro at the very @b end of your class.
+ */
+#define CREATE_SIGNAL(name, conName, args...) \
+	private: \
+		Signal<args> name; \
+	public: \
+		void conName(Signal<args>::Slot listener) { name.connect(listener); };
+
 template <typename ...Args>
 class Signal
 {

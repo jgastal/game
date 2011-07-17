@@ -23,7 +23,6 @@ class Application
 		int getScreenHeight();
 		int getDepth();
 		static Application *getInstance();
-		void onCloseRequested(Signal<>::Slot listener);
 
 	private:
 		friend Widget::Widget(Widget *parent);
@@ -33,7 +32,7 @@ class Application
 		int depth;
 		static void exiting();
 		static Application *instance;
-		Signal<> closeRequested;
+		CREATE_SIGNAL(closeRequested, onCloseRequested);
 };
 
 }

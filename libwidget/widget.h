@@ -25,10 +25,6 @@ static SDL_Color white = {0xff, 0xff, 0xff, 0};
 
 class Widget
 {
-	typedef Signal<SDL_MouseButtonEvent*> mouseSignal;
-	typedef Signal<SDL_KeyboardEvent*> keySignal;
-	typedef Signal<int, int> iiSignal;
-
 	public:
 		Widget(Widget *parent = 0);
 		virtual ~Widget();
@@ -43,14 +39,6 @@ class Widget
 		void render(SDL_Surface *target);
 		virtual void processEvent(SDL_Event *event);
 
-		void onClicked(mouseSignal::Slot listener);
-		void onLeftClicked(mouseSignal::Slot listener);
-		void onRightClicked(mouseSignal::Slot listener);
-		void onMiddleClicked(mouseSignal::Slot listener);
-		void onKeyPressed(keySignal::Slot listener);
-		void onResized(iiSignal::Slot listener);
-		void onMoved(iiSignal::Slot listener);
-
 	protected:
 		virtual void paint(SDL_Surface *surface) { };
 
@@ -64,13 +52,13 @@ class Widget
 		SDL_Surface *surface;
 
 		//signals
-		Signal<SDL_MouseButtonEvent*> clicked;
-		Signal<SDL_MouseButtonEvent*> leftClicked;
-		Signal<SDL_MouseButtonEvent*> rightClicked;
-		Signal<SDL_MouseButtonEvent*> middleClicked;
-		Signal<SDL_KeyboardEvent*> keyPressed;
-		Signal<int, int> resized;
-		Signal<int, int> moved;
+		CREATE_SIGNAL(clicked, onClicked, SDL_MouseButtonEvent*)
+		CREATE_SIGNAL(leftClicked, onLeftClicked, SDL_MouseButtonEvent*)
+		CREATE_SIGNAL(rightClicked, onRightClicked, SDL_MouseButtonEvent*)
+		CREATE_SIGNAL(middleClicked, onMiddleClicked, SDL_MouseButtonEvent*)
+		CREATE_SIGNAL(keyPressed, onKeyPressed, SDL_KeyboardEvent*)
+		CREATE_SIGNAL(resized, onResized, int, int)
+		CREATE_SIGNAL(moved, onMoved, int, int)
 };
 
 }

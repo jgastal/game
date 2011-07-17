@@ -3,6 +3,7 @@
 #include "menu.h"
 #include "map.h"
 #include "button.h"
+#include "signal.hpp"
 
 using namespace libwidget;
 
